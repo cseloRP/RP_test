@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use Illuminate\Support\Facades\Auth;
 
 class pagesController extends Controller{
 
     public function getIndex(){
-        $posts = Post::orderBy('id', 'desc')->paginate(5);
+
+        $posts = [];
+
+        if(Auth::check()) {
+            $posts = Post::orderBy('id', 'desc')->paginate(5);
+        }
         return view('pages.welcome')->with('posts', $posts);
     }
 
