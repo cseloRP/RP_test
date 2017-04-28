@@ -15,6 +15,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class={{ Request::is('/') ? "active" : ""}}><a href="/">Home</a></li>
+                <li class={{ Request::is('blog') ? "active" : ""}}><a href="/blog">Blog</a></li>
                 <li class={{ Request::is('about') ? "active" : ""}}><a href="/about">About</a></li>
                 <li class={{ Request::is('contact') ? "active" : ""}}><a href="/contact">Contact</a></li>
             </ul>
@@ -34,10 +35,12 @@
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @endif
                         @if (\Illuminate\Support\Facades\Auth::check())
+                                <li><a href="{{ route('post.index') }}">Edit posts</a></li>
+                                <li><a href="{{ route('categories.index') }}">Edit categories</a></li>
+                                <li><a href="{{ route('tags.index') }}">Edit tags</a></li>
+                            <hr>
                             <li>
-                                <a href="{{ url('/logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
 

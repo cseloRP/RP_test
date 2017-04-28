@@ -20,6 +20,12 @@
             {{ Form::label('slug', 'Slug:') }}
             {{ Form::text('slug', null, array('class' => 'form-control', 'required', 'minlength' => '5', 'maxlength' => '255')) }}
 
+            {{ Form::label('category_id', 'Category:') }}
+            {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
+
+            {{ Form::label('tags', 'Tags:') }}
+            {{ Form::select('tags[]', $tags, null, ['id' => 'tags', 'class' => 'form-control', 'multiple']) }}
+
             {{ Form::label('body', 'Post body:') }}
                 {{ Form::textarea('body', null, array('class' => 'form-control', 'required')) }}
 
@@ -33,4 +39,14 @@
 
     {!! app('html')->script('js/parsley.min.js') !!}
 
+    <script>
+        $('#tags').select2({
+            placeholder: 'Choose a tag',
+            tags: true,
+            ajax: {
+                dataType: 'json',
+                url: 'tags.json'
+            }
+        });
+    </script>
 @endsection

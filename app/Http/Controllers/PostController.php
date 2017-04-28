@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
+use App\Tag;
+use Illuminate\Cache\TagSet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -27,7 +30,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::pluck('name', 'id');
+        $tags = Tag::pluck('name', 'id');
+
+
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -38,19 +45,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, array(
             'title' => 'required|max:255',
             'slug' => 'required|alpha_dash|min:5|max:255',
+            'category_id' => 'required|integer',
             'body' => 'required'
         ));
 
         $post = new Post;
-
         $post->title = $request->title;
         $post->slug = $request->slug;
+        $post->category_id = $request->category_id;
         $post->body = $request->body;
 
         $post->save();
+        $this->syncTags($post, $request->input('tags'));
 
         Session::flash('success', 'Sikeresen elmentetted a Post-ot!');
 
@@ -79,8 +89,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $categories = Category::pluck('name', 'id');
+        $tags = Tag::pluck('name', 'id');
 
-        return view('posts.edit')->with('post', $post);
+
+        return view('posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -97,22 +110,29 @@ class PostController extends Controller
 
         $this->validate($request, array(
             'title' => 'required|max:255',
+            'category_id' => 'required|integer',
             'body' => 'required'
         ));
 
         if($request->input('slug') != $post->slug){
             $this->validate($request, array(
-                'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug'
+                'title' => 'required|max:255',
+                'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
+                'category_id' => 'required|integer',
+                'tag_list' => 'required|integer',
+                'body' => 'required'
             ));
         }
 
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
+        $post->category_id = $request->input('category_id');
         $post->body = $request->input('body');
 
-        $post->save();
+        $post->update();
+        $this->syncTags($post, $request->input('tag_list'));
 
-        Session::flash('success', 'Sikeresen elmentetted a Post-ot!');
+        Session::flash('success', 'Sikeresen módosítottad a Post-ot!');
 
         return redirect()->route('post.show', $post->id);
 
@@ -127,11 +147,21 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        $post->tags()->detach();
 
         $post->delete();
 
         Session::flash('success', 'Sikeresen törölted a Post-ot!');
 
         return redirect()->route('post.index');
+    }
+
+    /**
+     * @param Post $post
+     * @param array $tags
+     */
+    private function syncTags(Post $post, $tags)
+    {
+        $post->tags()->sync($tags);
     }
 }

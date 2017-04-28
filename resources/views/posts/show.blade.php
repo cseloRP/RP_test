@@ -16,6 +16,22 @@
                    <p><a href="{{ route('blog.single', $post->slug) }}">{{ route('blog.single', $post->slug)}}</a></p>
                </dl>
                <dl class="dl-horizontal">
+                    <label>Category:</label>
+                   <p>Posted In: {{ ($post->category)?$post->category->name:'Nincs kategória kiválasztva' }}</p>
+               </dl>
+               <dl class="dl-horizontal">
+                   <label>Tags:</label>
+                   @if(!$post->tags->isEmpty())
+                   <ul>
+                   @foreach($post->tags as $tag)
+                    <li> {{ $tag->name }} </li>
+                   @endforeach
+                   </ul>
+                   @else
+                   <p>Nincs tag beállítva</p>
+                   @endif
+               </dl>
+               <dl class="dl-horizontal">
                     <label>Create at:</label>
                     <p>{{ date('M j, Y H:ia', strtotime($post->created_at)) }}</p>
                </dl>

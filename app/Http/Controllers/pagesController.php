@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class pagesController extends Controller{
 
@@ -22,12 +25,31 @@ class pagesController extends Controller{
     }
 
     public function getContact(){
+        return view('pages.contact');
+    }
 
-        $name = "Xxx Company";
-        $address = "5678 Kisnyék Budapest krt. 112.";
-        $email = "xxxcomp@xxx.hu";
-        $contact_info = ['name'=>$name,'addr'=>$address,'email'=>$email];
-        return view('pages.contact')->with('info', $contact_info);
+    public function postContact(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'subject' => 'min:3',
+            'message' => 'min:10'
+        ]);
+
+        $data = array(
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'bodyMessage' => $request->message,
+        );
+
+        Mail::send('emails.contact', $data, function($message) use ($data){
+            $message->from($data['email']);
+            $message->to('rp+1@mailbox.hu');
+            $message->subject($data['subject']);
+        });
+
+        Session::flash('success', 'Sikeresen elküldted a kontakt üzenetet!');
+
+        return redirect('/');
     }
 
 }

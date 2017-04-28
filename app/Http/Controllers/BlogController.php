@@ -7,6 +7,13 @@ use App\Post;
 
 class BlogController extends Controller
 {
+
+    public function getList(){
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+
+        return view('blog.index')->with('posts', $posts);
+    }
+
     public function getSingle($slug){
         $post = Post::where('slug', '=', $slug)->first();
 

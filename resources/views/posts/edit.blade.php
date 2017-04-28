@@ -12,6 +12,12 @@
             {{ Form::label('slug', 'Slug:', ['class' => 'form-spacing-top']) }}
             {{ Form::text('slug', null, ['class' => 'form-control']) }}
 
+            {{ Form::label('category_id', 'Category:', ['class' => 'form-spacing-top']) }}
+            {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
+
+            {{ Form::label('tag_list', 'Tags:') }}
+            {{ Form::select('tag_list[]', $tags, null, ['id' => 'tag_list', 'class' => 'form-control', 'multiple']) }}
+
             {{ Form::label('body', 'Content:', ['class' => 'form-spacing-top']) }}
             {{ Form::textarea('body', null, ['class' => 'form-control']) }}
         </div>
@@ -38,4 +44,14 @@
         </div>
         {!! Form::close() !!}
     </div>
+@endsection
+
+@section('scripts')
+
+    <script>
+        $('#tag_list').select2({
+            placeholder: 'Choose a tag'
+        });
+    </script>
+
 @endsection
