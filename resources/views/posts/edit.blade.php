@@ -2,6 +2,19 @@
 
 @section('title', '| Edit post')
 
+@section('stylesheets')
+
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+    <script>
+        tinymce.init({
+            selector:'textarea',
+            plugins: 'link',
+            toolbar: 'undo redo | styleselect | bold italic | link image',
+            menubar: false,
+        });
+    </script>
+
 @section('content')
     <div class="row">
         {!! Form::model($post, ['route' => ['post.update', $post->id], 'method' => 'PUT']) !!}
