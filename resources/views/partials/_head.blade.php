@@ -9,6 +9,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 {{ app('html')->style('css/styles.css') }}
 
 @yield('stylesheets')

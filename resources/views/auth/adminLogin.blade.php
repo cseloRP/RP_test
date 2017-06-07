@@ -2,6 +2,7 @@
 
 @section('title', '| Contact')
 
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -47,7 +48,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="6LeNoCAUAAAAAHrnPaS-n2VseYc3JA1eDkeW_kD-"></div>
+                </div>
                 <div class="form-group">
                     <div>
                         <button type="submit" class="btn btn-primary">

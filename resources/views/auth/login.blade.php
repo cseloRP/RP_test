@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', '| Contact')
+@section('title', '| Login')
 
 @section('content')
     <div class="row">
@@ -46,6 +46,10 @@
                             </label>
                         </div>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="6LeNoCAUAAAAAHrnPaS-n2VseYc3JA1eDkeW_kD-"></div>
                 </div>
 
                 <div class="form-group">

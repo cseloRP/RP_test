@@ -47,10 +47,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $data['captcha'] = $this->validateCaptchaResponse();
+
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'g-recaptcha-response'=>'required',
+            'captcha'=>'min:1',
+        ],
+        [
+            'g-recaptcha-response.required' => 'Are you a robot?',
+            'captcha.min' => 'Unsuccessful login!',
         ]);
     }
 

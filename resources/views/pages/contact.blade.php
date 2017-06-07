@@ -21,6 +21,9 @@
                 <label name="message">Message: </label>
                 <textarea id="message" name="message" class="form-control">Type your message here...</textarea>
             </div>
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LeNoCAUAAAAAHrnPaS-n2VseYc3JA1eDkeW_kD-"></div>
+            </div>
             <input type="submit" value="Send" class="btn btn-primary">
         </form>
     </div>

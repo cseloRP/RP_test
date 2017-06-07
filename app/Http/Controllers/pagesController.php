@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Traits\reCaptchaTrait;
 
 class pagesController extends Controller{
+
+    use reCaptchaTrait;
 
     public function getIndex(){
 
@@ -29,10 +32,18 @@ class pagesController extends Controller{
     }
 
     public function postContact(Request $request){
+
+        $request['captcha'] = $this->validateCaptchaResponse();
+
         $this->validate($request, [
             'email' => 'required|email',
             'subject' => 'min:3',
-            'message' => 'min:10'
+            'message' => 'min:10',
+            'g-recaptcha-response'=>'required',
+            'captcha'=>'min:1',
+        ],
+        [
+            'captcha.min' => 'Unsuccessful send!',
         ]);
 
         $data = array(
