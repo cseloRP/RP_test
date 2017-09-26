@@ -25,8 +25,11 @@ Route::get('about', 'pagesController@getAbout');
 Route::get('contact', 'pagesController@getContact');
 Route::post('contact', 'pagesController@postContact');
 
-Route::resource('post', 'postController');
+Route::resource('post', 'PostController');
 
+Route::resource('album', 'AlbumController');
+
+Route::resource('image', 'ImageController', ['except' => ['create']]);
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');

@@ -8,7 +8,11 @@ class Category extends Model
 {
     protected $table = 'categories';
 
-    public function posts(){
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
        return $this->hasMany('App\Post');
     }
 }

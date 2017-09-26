@@ -36,6 +36,7 @@
                         @endif
                         @if (\Illuminate\Support\Facades\Auth::check())
                                 <li><a href="{{ route('post.index') }}">Edit posts</a></li>
+                                <li><a href="{{ route('album.index') }}">Edit albums</a></li>
                                 <li><a href="{{ route('categories.index') }}">Edit categories</a></li>
                                 <li><a href="{{ route('tags.index') }}">Edit tags</a></li>
                             <hr>

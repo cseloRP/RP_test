@@ -16,6 +16,8 @@
     </script>
 
 @section('content')
+    <h1>Create new post</h1>
+    <hr>
     <div class="row">
         {!! Form::model($post, ['route' => ['post.update', $post->id], 'method' => 'PUT']) !!}
         <div class="col-md-8">

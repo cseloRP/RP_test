@@ -17,4 +17,11 @@ class Tag extends Model
     public function posts(){
         return $this->belongsToMany('App\Post');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function albums(){
+        return $this->belongsToMany('App\Album');
+    }
 }
