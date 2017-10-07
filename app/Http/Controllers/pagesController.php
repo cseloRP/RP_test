@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Album;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +17,12 @@ class pagesController extends Controller{
     public function getIndex(){
 
         $posts = [];
-
+        $albums = [];
         if(Auth::check()) {
             $posts = Post::orderBy('id', 'desc')->paginate(5);
+            $albums = Album::orderBy('id', 'desc')->limit(3);
         }
-        return view('pages.welcome')->with('posts', $posts);
+        return view('pages.welcome', compact('posts', 'albums'));
     }
 
     public function getAbout(){

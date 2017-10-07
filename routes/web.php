@@ -16,6 +16,11 @@ Route::get('blog/{slug}', ['as' => 'blog.single', 'uses' => 'BlogController@getS
 
 Route::get('blog', 'BlogController@getList');
 
+Route::get('gallery/{id}', ['as' => 'galleries.single', 'uses' => 'GalleryController@getSingle'])
+    ->where('id', '[\d]+');
+
+Route::get('galleries/list', 'GalleryController@getList');
+
 Route::resource('categories', 'CategoryController', ['except' => ['create']]);
 
 Route::resource('tags', 'TagController', ['except' => ['create']]);

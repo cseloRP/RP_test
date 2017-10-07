@@ -8,7 +8,7 @@ class Album extends Model
 {
     protected $table = 'albums';
 
-    protected $fillable = ['name', 'description', 'cover_id'];
+    protected $fillable = ['name', 'description', 'cover_id', 'cover_path'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -31,5 +31,13 @@ class Album extends Model
      */
     public function getTagListAttribute(){
         return $this->tags->pluck('id')->toArray();
+    }
+
+    public function getAlbumCoverPath() {
+        $cover = $this->image()->where('id', $this->cover_id)->first();
+        $thumbnailPath = $cover->thumbnail_path . '/' . $cover->thumbnail;
+        $imagePath = $cover->file_path . '/' . $cover->file_name;
+
+        return ['thumbnailPath' => $thumbnailPath, 'imagePath' => $imagePath];
     }
 }
