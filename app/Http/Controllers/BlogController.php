@@ -11,7 +11,7 @@ class BlogController extends Controller
     public function getList(){
         $posts = Post::orderBy('id', 'desc')->paginate(10);
 
-        return view('blog.index')->with('posts', $posts);
+        return view('blog.index', compact('posts'));
     }
 
     public function getSingle($slug){

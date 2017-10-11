@@ -30,6 +30,9 @@
             {{ Form::label('category_id', 'Category:', ['class' => 'form-spacing-top']) }}
             {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
 
+            {{ Form::label('album_id', 'Album:', ['class' => 'form-spacing-top']) }}
+            {{ Form::select('album_id', $albums, null, ['class' => 'form-control']) }}
+
             {{ Form::label('tag_list', 'Tags:') }}
             {{ Form::select('tag_list[]', $tags, null, ['id' => 'tag_list', 'class' => 'form-control', 'multiple']) }}
 

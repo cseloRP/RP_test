@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Album;
 use App\Category;
 use App\Post;
 use App\Tag;
@@ -12,6 +13,10 @@ use Mews\Purifier\Facades\Purifier;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +38,10 @@ class PostController extends Controller
     {
         $categories = Category::pluck('name', 'id');
         $tags = Tag::pluck('name', 'id');
+        $albums = Album::pluck('name', 'id');
 
 
-        return view('posts.create', compact('categories', 'tags'));
+        return view('posts.create', compact('categories', 'tags', 'albums'));
     }
 
     /**
@@ -51,6 +57,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|alpha_dash|min:5|max:255',
             'category_id' => 'required|integer',
+            'album_id' => 'integer|nullable',
             'body' => 'required'
         ));
 
@@ -58,6 +65,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->slug = $request->slug;
         $post->category_id = $request->category_id;
+        $post->album_id = $request->album_id;
         $post->body = Purifier::clean($request->body);
 
         $post->save();
@@ -92,9 +100,9 @@ class PostController extends Controller
         $post = Post::find($id);
         $categories = Category::pluck('name', 'id');
         $tags = Tag::pluck('name', 'id');
+        $albums = Album::pluck('name', 'id');
 
-
-        return view('posts.edit', compact('post', 'categories', 'tags'));
+        return view('posts.edit', compact('post', 'categories', 'tags', 'albums'));
     }
 
     /**
@@ -120,6 +128,7 @@ class PostController extends Controller
                 'title' => 'required|max:255',
                 'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
                 'category_id' => 'required|integer',
+                'album_id' => 'integer|nullable',
                 'tag_list' => 'required|integer',
                 'body' => 'required'
             ));
@@ -128,6 +137,7 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
         $post->category_id = $request->input('category_id');
+        $post->album_id = $request->input('album_id');
         $post->body = Purifier::clean($request->input('body'));
 
         $post->update();

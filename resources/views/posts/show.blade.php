@@ -20,6 +20,10 @@
                    <p>Posted In: {{ ($post->category)?$post->category->name:'Nincs kategória kiválasztva' }}</p>
                </dl>
                <dl class="dl-horizontal">
+                   <label>Connected album:</label>
+                   <p>{{ ($post->album)?$post->album->name:'Nincs kategória kiválasztva' }}</p>
+               </dl>
+               <dl class="dl-horizontal">
                    <label>Tags:</label>
                    @if(!$post->tags->isEmpty())
                    <ul>
@@ -50,6 +54,29 @@
                        {{ Form::close() }}
                    </div>
                </div>
+           </div>
+       </div>
+       <div class="col-md-8">
+           <div class="row">
+               <label>Borítókép:</label>
+               <div class="col-xs-12">
+                   {{--@if($cover)--}}
+                       {{--<img alt="" src="{{(url($cover->thumbnail_path . '/' . $cover->thumbnail))}}" style="width: 100%;" >--}}
+                   {{--@else--}}
+                       {{--Nincs borítókép beállítva--}}
+                   {{--@endif--}}
+               </div>
+           </div>
+           <div class="row">
+               <label>Album képek:</label>
+               @foreach($post->album->image as $image)
+                   <div class="col-lg-3 col-md-4 col-xs-6">
+                       <a class="d-block mb-4 h-100" href="{{url($image->file_path . '/' . $image->file_name)}}" target="_blank">
+                           <img class="img-fluid img-thumbnail" alt="" src="{{url($image->thumbnail_path . '/' . $image->thumbnail)}}">
+                       </a>
+                   </div>
+               @endforeach
+
            </div>
        </div>
    </div>

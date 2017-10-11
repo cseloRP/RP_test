@@ -5,11 +5,13 @@
 @section('content')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <img class="img-fluid" style="width:100%" src="{{ url($post->album->getAlbumCoverPath()['thumbnailPath']) }}" />
             <span class="disqus-comment-count" data-disqus-identifier="{{ $post->id }}"> <!-- Count will be inserted here --> </span>
             <h1>{{ $post->title }}</h1>
             <p>{!! $post->body !!}</p>
             <hr>
             <p>Posted In: {{ ($post->category)?$post->category->name:'Nincs kategória kiválasztva' }}</p>
+            <p>Connected gallery: {{ ($post->album)?$post->album->name:'Nincs galéria kiválasztva' }}</p>
             <p>Tags:</p>
             @if(!$post->tags->isEmpty())
                 <ul>

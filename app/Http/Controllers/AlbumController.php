@@ -108,6 +108,12 @@ class AlbumController extends Controller
         }
 
         if($request->cover && $album) {
+            if($album->cover_id) {
+                if(Image::find($album->cover_id)) {
+                    Image::find($album->cover_id)->delete();
+                }
+            }
+
             $coverImage = $request->file('cover');
             $coverPath = $coverImage->move($storagePath, 'cover.jpg');
 
@@ -122,9 +128,6 @@ class AlbumController extends Controller
 
             $thumb->save('galleries/' . $album->id . '/thumb/cover.jpg');
 
-            if($album->cover_id) {
-                Image::find($album->cover_id)->delete();
-            }
 
             $coverData = Image::create([
                 'album_id' => $album->id,
@@ -132,6 +135,7 @@ class AlbumController extends Controller
                 'file_path' => $coverPath->getPath(),
                 'thumbnail' => $thumb->basename,
                 'thumbnail_path' => $thumb->dirname,
+                'cover' => true,
                 'name' => '',
                 'description' => '',
             ]);

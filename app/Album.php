@@ -27,17 +27,31 @@ class Album extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
+    /**
      * @return mixed
      */
     public function getTagListAttribute(){
         return $this->tags->pluck('id')->toArray();
     }
 
-    public function getAlbumCoverPath() {
-        $cover = $this->image()->where('id', $this->cover_id)->first();
+    public function getAlbumCoverPath()
+    {
+        $cover = $this->getCover();
         $thumbnailPath = $cover->thumbnail_path . '/' . $cover->thumbnail;
         $imagePath = $cover->file_path . '/' . $cover->file_name;
 
         return ['thumbnailPath' => $thumbnailPath, 'imagePath' => $imagePath];
+    }
+
+    public function getCover()
+    {
+        return $this->image()->where('id', $this->cover_id)->first();
     }
 }

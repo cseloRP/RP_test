@@ -8,7 +8,7 @@ class Image extends Model
 {
     protected $table = 'images';
 
-    protected $fillable = ['album_id', 'file_name', 'file_path', 'thumbnail', 'thumbnail_path', 'name', 'description'];
+    protected $fillable = ['album_id', 'file_name', 'file_path', 'thumbnail', 'thumbnail_path', 'cover', 'name', 'description'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -21,8 +21,12 @@ class Image extends Model
     public function delete()
     {
         if(parent::delete()) {
-            unlink(public_path($this->file_path . '/' . $this->file_name ));
-            unlink(public_path($this->thumbnail_path . '/' . $this->thumbnail ));
+            if(file_exists(public_path($this->file_path . '/' . $this->file_name))) {
+                unlink(public_path($this->file_path . '/' . $this->file_name));
+            }
+            if(file_exists(public_path($this->thumbnail_path . '/' . $this->thumbnail))) {
+                unlink(public_path($this->thumbnail_path . '/' . $this->thumbnail));
+            }
         }
     }
 }
