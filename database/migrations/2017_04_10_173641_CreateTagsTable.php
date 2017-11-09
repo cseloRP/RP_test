@@ -17,6 +17,7 @@ class CreateTagsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
+            $table->index('id');
         });
 
         Schema::create('post_tag', function (Blueprint $table) {
@@ -27,6 +28,7 @@ class CreateTagsTable extends Migration
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
             $table->timestamps();
+            $table->index(['post_id', 'tag_id']);
         });
     }
 

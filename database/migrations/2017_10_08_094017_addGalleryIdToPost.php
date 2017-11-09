@@ -15,6 +15,7 @@ class AddGalleryIdToPost extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->integer('album_id')->nullable()->after('category_id')->unsigned();
+            $table->index('album_id');
         });
     }
 

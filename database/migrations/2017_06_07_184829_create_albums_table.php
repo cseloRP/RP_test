@@ -17,8 +17,9 @@ class CreateAlbumsTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('name');
             $table->text('description');
-            $table->integer('cover_id');
+            $table->integer('cover_id')->nullable();
             $table->timestamps();
+            $table->index(['id', 'name']);
         });
     }
 

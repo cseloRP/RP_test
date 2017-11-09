@@ -52,6 +52,7 @@ class AlbumController extends Controller
         $album = new Album();
         $album->name = $request->name;
         $album->description = $request->description?: '';
+        $album->cover_id = null;
         $album->save();
 
         $tags = Tag::pluck('name', 'id');

@@ -18,10 +18,10 @@ class pagesController extends Controller{
 
         $posts = [];
         $albums = [];
-        if(Auth::check()) {
+//        if(Auth::check()) {
             $posts = Post::orderBy('id', 'desc')->paginate(5);
             $albums = Album::orderBy('id', 'desc')->limit(3);
-        }
+//        }
         return view('pages.welcome', compact('posts', 'albums'));
     }
 

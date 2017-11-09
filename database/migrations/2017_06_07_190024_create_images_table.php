@@ -22,9 +22,10 @@ class CreateImagesTable extends Migration
             $table->string('thumbnail_path');
             $table->string('name');
             $table->text('description');
-            $table->boolean('cover');
+            $table->boolean('cover')->default(false);
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
+            $table->index(['id', 'album_id', 'name']);
         });
     }
 

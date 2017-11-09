@@ -21,6 +21,7 @@ class CreateAlbumTag extends Migration
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
             $table->timestamps();
+            $table->index(['album_id', 'tag_id']);
         });
     }
 
