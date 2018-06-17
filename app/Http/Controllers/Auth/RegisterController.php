@@ -6,9 +6,11 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Traits\reCaptchaTrait;
 
 class RegisterController extends Controller
 {
+    use reCaptchaTrait;
     /*
     |--------------------------------------------------------------------------
     | Register Controller

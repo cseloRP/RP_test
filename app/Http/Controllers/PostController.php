@@ -69,8 +69,9 @@ class PostController extends Controller
         $post->body = Purifier::clean($request->body);
 
         $post->save();
-        $this->syncTags($post, $request->input('tags'));
-
+        if(null !== $request->input('tags')) {
+            $this->syncTags($post, $request->input('tags'));
+        }
         Session::flash('success', 'Sikeresen elmentetted a Post-ot!');
 
         return redirect()->route('post.show', $post->id);
@@ -141,8 +142,9 @@ class PostController extends Controller
         $post->body = Purifier::clean($request->input('body'));
 
         $post->update();
-        $this->syncTags($post, $request->input('tag_list'));
-
+        if(null !== $request->input('tag_list')) {
+            $this->syncTags($post, $request->input('tag_list'));
+        }
         Session::flash('success', 'Sikeresen módosítottad a Post-ot!');
 
         return redirect()->route('post.show', $post->id);

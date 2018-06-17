@@ -57,18 +57,19 @@
            </div>
        </div>
        <div class="col-md-8">
-           <div class="row">
-               <label>Borítókép:</label>
-               <div class="col-xs-12">
+           {{--<div class="row">--}}
+               {{--<label>Borítókép:</label>--}}
+               {{--<div class="col-xs-12">--}}
                    {{--@if($cover)--}}
                        {{--<img alt="" src="{{(url($cover->thumbnail_path . '/' . $cover->thumbnail))}}" style="width: 100%;" >--}}
                    {{--@else--}}
                        {{--Nincs borítókép beállítva--}}
                    {{--@endif--}}
-               </div>
-           </div>
+               {{--</div>--}}
+           {{--</div>--}}
            <div class="row">
                <label>Album képek:</label>
+               @if($post->album)
                @foreach($post->album->image as $image)
                    <div class="col-lg-3 col-md-4 col-xs-6">
                        <a class="d-block mb-4 h-100" href="{{url($image->file_path . '/' . $image->file_name)}}" target="_blank">
@@ -76,7 +77,9 @@
                        </a>
                    </div>
                @endforeach
-
+               @else
+                    Nincs borítókép beállítva
+               @endif
            </div>
        </div>
    </div>

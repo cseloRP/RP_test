@@ -22,7 +22,7 @@
             @foreach($tags as $tag)
                 <tr>
                     <th>{{ $tag->id }}</th>
-                    <td><a href="{{ route('tags.show', $tag->id) }}">{{ $tag->name }}</a></td>
+                    <td><a href="{{ route('tags.edit', $tag->id) }}">{{ $tag->name }}</a></td>
                     <td>
                         <a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-delete"></span></a>
                     </td>
@@ -38,6 +38,7 @@
     </div>
     <div class="col-md-3">
         <div class="well">
+            {!! Form::open(['route' => 'tags.store', 'method' => 'POST']) !!}
             <h2>New Tag</h2>
             {{ Form::label('name', 'Name:') }}
             {{ Form::text('name', null, ['class' => 'form-control']) }}
