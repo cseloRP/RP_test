@@ -7,6 +7,7 @@
     <div class="col-md-12">
         <h1>Contact page</h1>
         <hr>
+        {!! Breadcrumbs::render('contact') !!}
         <form action="{{ url('contact') }}" method="POST">
             {{ csrf_field() }}
             <div class="form-group">

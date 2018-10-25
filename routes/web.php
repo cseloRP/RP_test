@@ -14,21 +14,21 @@
 Route::get('blog/{slug}', ['as' => 'blog.single', 'uses' => 'BlogController@getSingle'])
         ->where('slug', '[\w\d\-\_]+');
 
-Route::get('blog', 'BlogController@getList');
+Route::get('blog', 'BlogController@getList')->name('blog.index');
 
 Route::get('gallery/{id}', ['as' => 'galleries.single', 'uses' => 'GalleryController@getSingle'])
     ->where('id', '[\d]+');
 
-Route::get('galleries/list', 'GalleryController@getList');
+Route::get('galleries/list', 'GalleryController@getList')->name('gallery.index');;
 
 Route::resource('categories', 'CategoryController', ['except' => ['create']]);
 
 Route::resource('tags', 'TagController', ['except' => ['create']]);
 
-Route::get('/', 'pagesController@getIndex');
-Route::get('about', 'pagesController@getAbout');
-Route::get('contact', 'pagesController@getContact');
-Route::post('contact', 'pagesController@postContact');
+Route::get('/', 'pagesController@getIndex')->name('home');
+Route::get('about', 'pagesController@getAbout')->name('about');;
+Route::get('contact', 'pagesController@getContact')->name('contact.index');
+Route::post('contact', 'pagesController@postContact')->name('contact.submit');
 
 Route::resource('post', 'PostController');
 

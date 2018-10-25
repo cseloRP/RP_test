@@ -14,7 +14,7 @@
             <div class="well">
                 <div class="row">
                     <div class="col-sm-6">
-                        {{ Html::linkRoute('categories.show', 'Cancel', array($category->id), array('class' => 'btn btn-primary btn-block')) }}
+                        {{ Html::linkRoute('categories.index', 'Cancel', array($category->id), array('class' => 'btn btn-primary btn-block')) }}
                     </div>
                     <div class="col-sm-6">
                         {{ Form::submit('Save changes', ['class' => 'btn btn-success btn-block']) }}

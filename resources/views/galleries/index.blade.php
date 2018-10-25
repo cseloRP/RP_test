@@ -8,7 +8,7 @@
             <h1>Galleries</h1>
     </div>
 </div>
-
+{!! Breadcrumbs::render('galleries') !!}
 <div class="album text-muted">
     <div class="container">
         <div class="row">
@@ -17,7 +17,7 @@
                 @foreach($albums as $album)
                     <div class="col-lg-5 col-md-4 col-xs-6">
                         <a href="{{ url('gallery/' . $album->id) }}" class="d-block mb-4 h-100">
-                            <img class="img-fluid img-thumbnail" src="{{url($album->getAlbumCoverPath()['thumbnailPath'])}}" alt="">
+                            <img class="lazy img-fluid img-thumbnail" src="{{url($album->getAlbumCoverPath()['thumbnailPath'])}}" alt="">
                             <h3>{{ $album->name }}</h3>
                         </a>
                     </div>

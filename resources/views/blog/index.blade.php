@@ -8,7 +8,7 @@
             <h1>Blog</h1>
     </div>
 </div>
-
+{!! Breadcrumbs::render('blog') !!}
 @foreach($posts as $post)
     <div class="row">
         <h3>{{ $post->title }}</h3>

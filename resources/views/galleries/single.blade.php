@@ -3,6 +3,7 @@
 @section('title', "| $album->name")
 
 @section('content')
+    {!! Breadcrumbs::render('gallery',$album) !!}
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <span class="disqus-comment-count" data-disqus-identifier="{{ $album->id }}"> <!-- Count will be inserted here --> </span>
@@ -11,8 +12,8 @@
             @if(!$album->image->isEmpty())
                     @foreach($album->image as $image)
                         <div class="col-lg-3 col-md-4 col-xs-6">
-                            <a href="{{url($image->file_path . '/' . $image->file_name)}}">
-                                <img class="img-fluid img-thumbnail" alt="" src="{{url($image->thumbnail_path . '/' . $image->thumbnail)}}">
+                            <a href="{{url($image->file_path . '/' . $image->file_name)}}" class="gallery-image lazy" data-group="gallery">
+                                <img class="lazy img-fluid img-thumbnail" alt="" src="{{url($image->thumbnail_path . '/' . $image->thumbnail)}}">
                             </a>
                         </div>
                     @endforeach

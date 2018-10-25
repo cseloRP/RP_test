@@ -80,9 +80,9 @@
         <div class="col-md-8">
             @foreach($album->image as $image)
                 <div class="col-lg-3 col-md-4 col-xs-6">
-                    <a href="{{ route('image.edit', $image->id) }}" class="d-block mb-4 h-100">
-                        <img class="img-fluid img-thumbnail" alt="" src="{{url(Storage::url($image->thumbnail))}}" >
+                    <a href="{{ route('image.edit', $image->id) }}" class="d-block mb-4 h-100 gallery-image" data-group="gallery">
                         <img class="img-fluid img-thumbnail" alt="" src="{{url($image->thumbnail_path . '/' . $image->thumbnail)}}">
+                        <img class="img-fluid img-thumbnail" alt="" src="{{url(Storage::url($image->thumbnail))}}" >
                     </a>
                     {{ Form::open(['route' => ['image.destroy', $image->id], 'method' => 'DELETE']) }}
                     {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-block']) }}
